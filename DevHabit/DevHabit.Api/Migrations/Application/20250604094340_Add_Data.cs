@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DevHabit.Api.Migrations.Application;
 
 /// <inheritdoc />
-public partial class Add_Habits : Migration
+public partial class Add_Data : Migration
 {
     /// <inheritdoc />
     protected override void Up(MigrationBuilder migrationBuilder)
@@ -30,11 +30,11 @@ public partial class Add_Habits : Migration
                 status = table.Column<int>(type: "integer", nullable: false),
                 is_archived = table.Column<bool>(type: "boolean", nullable: false),
                 end_date = table.Column<DateOnly>(type: "date", nullable: true),
-                milestone_target = table.Column<int>(type: "integer", nullable: false),
-                milestone_current = table.Column<int>(type: "integer", nullable: false),
+                milestone_target = table.Column<int>(type: "integer", nullable: true),
+                milestone_current = table.Column<int>(type: "integer", nullable: true),
                 created_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                updated_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                last_completed_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                updated_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                last_completed_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
             },
             constraints: table =>
             {

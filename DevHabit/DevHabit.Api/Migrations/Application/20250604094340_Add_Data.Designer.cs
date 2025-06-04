@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DevHabit.Api.Migrations.Application
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250603223828_Add_Habits")]
-    partial class Add_Habits
+    [Migration("20250604094340_Add_Data")]
+    partial class Add_Data
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,7 +50,7 @@ namespace DevHabit.Api.Migrations.Application
                         .HasColumnType("boolean")
                         .HasColumnName("is_archived");
 
-                    b.Property<DateTime>("LastCompletedAtUtc")
+                    b.Property<DateTime?>("LastCompletedAtUtc")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("last_completed_at_utc");
 
@@ -68,7 +68,7 @@ namespace DevHabit.Api.Migrations.Application
                         .HasColumnType("integer")
                         .HasColumnName("type");
 
-                    b.Property<DateTime>("UpdatedAtUtc")
+                    b.Property<DateTime?>("UpdatedAtUtc")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_at_utc");
 
@@ -154,8 +154,7 @@ namespace DevHabit.Api.Migrations.Application
                     b.Navigation("Frequency")
                         .IsRequired();
 
-                    b.Navigation("Milestone")
-                        .IsRequired();
+                    b.Navigation("Milestone");
 
                     b.Navigation("Target")
                         .IsRequired();
