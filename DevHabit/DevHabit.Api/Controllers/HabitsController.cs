@@ -19,27 +19,30 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
             .Habits
             .Select(HabitQueries.ProjectToDto()).
             ToListAsync();
+
         var habitsCollectionDto = new HabitsCollectionDto
         {
             Data = habits
         };
+        
         return Ok(habitsCollectionDto);
     }
 
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<HabitDto>> GetHabitId(string id)
+    public async Task<ActionResult<HabitWithTagsDto>> GetHabitId(string id)
     {
-        HabitDto? habit = await dbContext
+        HabitWithTagsDto? habit = await dbContext
             .Habits
             .Where(h => h.Id == id)
-            .Select(HabitQueries.ProjectToDto())
+            .Select(HabitQueries.ProjectToDtoWithTags())
             .FirstOrDefaultAsync();
 
         if (habit == null)
         {
             return NotFound();
         }
+        
         return Ok(habit);
     }
     [HttpPost]
@@ -71,7 +74,7 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         await dbContext.SaveChangesAsync();        
       
         return NoContent();
-    }
+    } 
 
     [HttpPatch("{id}")]
     public async Task<ActionResult> PatchHabit(string id, JsonPatchDocument<HabitDto> patchDocument)
