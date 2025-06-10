@@ -11,10 +11,8 @@ public sealed class CreateHabitDtoValidator : AbstractValidator<CreateHabitDto>
             "pages", "books", "tasks", "sessions"
     ];
 
-    private static readonly string[] AllowedUnitsForBinaryHabits = ["sessions", "tasks"]; 
-    [
-            "daily", "weekly", "monthly", "yearly"
-    ];
+    private static readonly string[] AllowedUnitsForBinaryHabits = ["sessions", "tasks"];
+  
     public CreateHabitDtoValidator()
     {
         RuleFor(x => x.Name)
