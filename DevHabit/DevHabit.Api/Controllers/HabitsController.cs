@@ -1,7 +1,8 @@
-﻿using System.Linq.Expressions;
+﻿using System.Linq.Dynamic.Core;
 using DevHabit.Api.Database;
 using DevHabit.Api.DTOs.Habits;
 using DevHabit.Api.Entities;
+using DevHabit.Api.Services.Sorting;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.JsonPatch;
@@ -15,9 +16,19 @@ namespace DevHabit.Api.Controllers;
 public sealed class HabitsController(ApplicationDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<HabitsCollectionDto>> GetHabit([FromQuery] HabitsQueryParameters query)
+    public async Task<ActionResult<HabitsCollectionDto>> GetHabits(
+        [FromQuery] HabitsQueryParameters query,
+        SortMappingProvider sortMappingProvider)
     {
+        if (!sortMappingProvider.ValidateMappings<Habit, HabitDto>(query.Sort))
+        {
+            return Problem(
+                statusCode: StatusCodes.Status400BadRequest,
+                detail: $"The provided sort parameter isn't valid: '{query.Sort}'");
+        }
         query.Search ??= query.Search?.Trim().ToLower();
+
+        SortMapping[] sortMappings = sortMappingProvider.GetMappings<Habit, HabitDto>();
 
         List<HabitDto> habits = await dbContext
             .Habits
@@ -26,6 +37,7 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
                         h.Description != null && h.Description.Contains(query.Search, StringComparison.CurrentCultureIgnoreCase))
             .Where(h => query.Type == null || h.Type == query.Type)
             .Where(h => query.Status == null || h.Status == query.Status)
+            .ApplySort(query.Sort, sortMappings)
             .Select(HabitQueries.ProjectToDto())
             .ToListAsync();
 
@@ -69,7 +81,7 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         
         HabitDto habitDto = habit.ToDto();
         
-        return CreatedAtAction(nameof(GetHabit), new { id = habitDto.Id}, habitDto);
+        return CreatedAtAction(nameof(GetHabits), new { id = habitDto.Id}, habitDto);
     }
 
     [HttpPut("{id}")]
