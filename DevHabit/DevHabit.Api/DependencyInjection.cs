@@ -1,4 +1,5 @@
-﻿using DevHabit.Api.Database;
+﻿using Asp.Versioning;
+using DevHabit.Api.Database;
 using DevHabit.Api.DTOs.Habits;
 using DevHabit.Api.Entities;
 using DevHabit.Api.Middlewares;
@@ -8,6 +9,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Newtonsoft.Json.Serialization;
 using Npgsql;
 using OpenTelemetry;
