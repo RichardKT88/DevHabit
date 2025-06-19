@@ -1,4 +1,5 @@
-﻿using DevHabit.Api.Entities;
+﻿using DevHabit.Api.DTOs.Auth;
+using DevHabit.Api.Entities;
 
 namespace DevHabit.Api.DTOs.Users;
 

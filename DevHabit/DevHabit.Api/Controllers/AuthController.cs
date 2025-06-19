@@ -1,6 +1,9 @@
 ﻿using DevHabit.Api.Database;
 using DevHabit.Api.DTOs.Auth;
+using DevHabit.Api.DTOs.Users;
 using DevHabit.Api.Entities;
+using DevHabit.Api.Services;
+using DevHabit.Api.Settings;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
