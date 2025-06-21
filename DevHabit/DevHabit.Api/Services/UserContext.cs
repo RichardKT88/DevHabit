@@ -1,4 +1,5 @@
 ﻿using DevHabit.Api.Database;
+using DevHabit.Api.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 

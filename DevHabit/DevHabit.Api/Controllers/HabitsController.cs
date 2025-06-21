@@ -65,8 +65,8 @@ public sealed class HabitsController(
             .Habits
             .Where(h => h.UserId == userId)
             .Where(h => query.Search == null ||
-                        h.Name.ToLower().Contains(query.Search) ||
-                        h.Description != null && h.Description.ToLower().Contains(query.Search))
+                        h.Name.Contains(query.Search, StringComparison.CurrentCultureIgnoreCase) ||
+                        h.Description != null && h.Description.Contains(query.Search, StringComparison.CurrentCultureIgnoreCase))
             .Where(h => query.Type == null || h.Type == query.Type)
             .Where(h => query.Status == null || h.Status == query.Status)
             .ApplySort(query.Sort, sortMappings)
