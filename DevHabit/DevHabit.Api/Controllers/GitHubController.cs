@@ -18,7 +18,8 @@ namespace DevHabit.Api.Controllers;
     CustomMediaTypeNames.Application.HateoasJsonV1)]
 public sealed class GitHubController(
     GitHubAccessTokenService gitHubAccessTokenService,
-    GitHubService gitHubService,
+    RefitGitHubService gitHubService,
+    //GitHubService gitHubService,
     UserContext userContext,
     LinkService linkService) : ControllerBase
 {
