@@ -35,6 +35,10 @@
     <PackageReference Include="System.Linq.Dynamic.Core" />   
   </ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="DevHabit.UnitTests" />
+	</ItemGroup>
+
   <ItemGroup>
     <Folder Include="DTOs\EntryImports\" />
     <Folder Include="Migrations\Identity\" />

@@ -19,4 +19,7 @@ public sealed class Habit
     public DateTime? LastCompletedAtUtc { get; set; }
     public List<HabitTag> HabitTags { get; set; }
     public List<Tag> Tags { get; set; }
+
+    public static string NewId() => $"h_{Guid.CreateVersion7()}";
+
 }
