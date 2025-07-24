@@ -166,7 +166,7 @@ public static class DependencyInjection
             .AddHttpClient("github")
             .ConfigureHttpClient(client =>
             {
-                client.BaseAddress = new Uri("https://api.github.com");
+                client.BaseAddress = new Uri(builder.Configuration.GetSection("GitHub:BaseUrl").Get<string>()!);
 
                 client.DefaultRequestHeaders
                     .UserAgent.Add(new ProductInfoHeaderValue("DevHabit", "1.0"));
@@ -181,7 +181,7 @@ public static class DependencyInjection
            {
                ContentSerializer = new NewtonsoftJsonContentSerializer()
            })
-           .ConfigureHttpClient(client => client.BaseAddress = new Uri("https://api.github.com"));
+           .ConfigureHttpClient(client => client.BaseAddress = new Uri(builder.Configuration.GetSection("GitHub:BaseUrl").Get<string>()!));
         //.AddHttpMessageHandler<DelayHandler>();
         //.InternalRemoveAllResilienceHandlers()
         // Configuring a custom resilience pipeline for the GitHub API client
