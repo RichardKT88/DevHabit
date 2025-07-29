@@ -68,7 +68,6 @@ csharp_style_expression_bodied_indexers = true:error
 csharp_style_expression_bodied_accessors = true:error
 csharp_style_expression_bodied_lambdas = true:none
 csharp_style_expression_bodied_local_functions = true:error
-csharp_prefer_system_threading_lock = true:suggestion
 
 [*.{cs,vb}]
 dotnet_style_prefer_simplified_boolean_expressions = true:suggestion
@@ -319,8 +318,14 @@ dotnet_diagnostic.CA1822.severity = none
 # CA1848: Use the LoggerMessage delegates
 dotnet_diagnostic.CA1848.severity = none
 
+# CA1849: Call async methods when in an async method
+dotnet_diagnostic.CA1849.severity = none
+
 # CA1860: Avoid using 'Enumerable.Any()' extension method
 dotnet_diagnostic.CA1860.severity = none
+
+# CA1862: Use the 'StringComparison' method overloads to perform case-insensitive string comparisons
+dotnet_diagnostic.CA1862.severity = none
 
 # CA2007: Consider calling ConfigureAwait on the awaited task
 dotnet_diagnostic.CA2007.severity = none
@@ -364,10 +369,16 @@ dotnet_diagnostic.CS8603.severity = none
 # CS8618: Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 dotnet_diagnostic.CS8618.severity = none
 
+# CS9107: Parameter is captured into the state of the enclosing type and its value is also passed to the base constructor. The value might be captured by the base class as well.
+dotnet_diagnostic.CS9107.severity = none
+
 # IDE Code Analyzers rules
 
 # IDE0005: Remove unnecessary using directives
 dotnet_diagnostic.IDE0005.severity = none
+
+# IDE0008: Use explicit type
+dotnet_diagnostic.IDE0008.severity = none
 
 # IDE0046: Convert to conditional expression
 dotnet_diagnostic.IDE0046.severity = none
@@ -407,6 +418,9 @@ dotnet_diagnostic.S2139.severity = none
 # S2325: Methods and properties that don't access instance data should be static
 dotnet_diagnostic.S2325.severity = none
 
+# S2326: Unused type parameters should be removed
+dotnet_diagnostic.S2326.severity = none
+
 # S2365: Properties should not make collection or array copies
 dotnet_diagnostic.S2365.severity = none
 
@@ -424,19 +438,3 @@ dotnet_diagnostic.S6605.severity = none
 
 # S6781: JWT secret keys should not be disclosed
 dotnet_diagnostic.S6781.severity = none
-dotnet_style_operator_placement_when_wrapping = beginning_of_line
-tab_width = 4
-indent_size = 4
-end_of_line = crlf
-dotnet_style_coalesce_expression = true:none
-dotnet_style_null_propagation = true:error
-dotnet_style_prefer_is_null_check_over_reference_equality_method = true:error
-dotnet_style_prefer_auto_properties = true:warning
-dotnet_style_object_initializer = true:error
-dotnet_style_collection_initializer = true:error
-dotnet_style_prefer_conditional_expression_over_assignment = true:error
-dotnet_style_prefer_conditional_expression_over_return = true:none
-dotnet_style_explicit_tuple_names = true:error
-dotnet_style_prefer_inferred_tuple_names = true:error
-dotnet_style_prefer_inferred_anonymous_type_member_names = true:error
-dotnet_style_prefer_compound_assignment = true:error

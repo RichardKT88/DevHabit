@@ -184,7 +184,7 @@ public sealed class GitHubTests(DevHabitWebAppFactory factory) : IntegrationTest
     {
         // Arrange
         HttpClient client = await CreateAuthenticatedClientAsync();
-
+        
         // Store a token first
         var storeDto = new StoreGitHubAccessTokenDto
         {

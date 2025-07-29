@@ -48,7 +48,7 @@ public sealed class CreateTagDtoValidatorTests
         // Arrange
         var dto = new CreateTagDto
         {
-            Name = new string('a', 51)!
+            Name = new string('a', 101)!
         };
 
         // Act
