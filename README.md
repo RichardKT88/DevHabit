@@ -15,6 +15,7 @@ O DevHabit é uma API para criação e acompanhamento de hábitos: cadastro de h
 - Processamento de jobs em background
 - Versionamento de API
 - Observabilidade estruturada (tracing e telemetria)
+- Cobertura de testes unitários e de integração (com Testcontainers)
 
 ## Arquitetura e decisões técnicas
 
@@ -23,6 +24,7 @@ O DevHabit é uma API para criação e acompanhamento de hábitos: cadastro de h
 - **Persistência:** PostgreSQL via EF Core
 - **Observabilidade:** tracing distribuído e telemetria via OpenTelemetry (Seq ou .NET Aspire Dashboard como backend)
 - **Containerização:** Docker, com suporte a ambiente de desenvolvimento e build de produção com imagem mínima
+- **Estratégia de testes:** testes unitários cobrindo regras de negócio e handlers isoladamente, e testes de integração usando **Testcontainers** para subir dependências reais (ex: PostgreSQL) em containers efêmeros durante a execução dos testes — evitando mocks de banco e validando o comportamento real da camada de persistência
 
 ## Tecnologias utilizadas
 
@@ -31,6 +33,8 @@ O DevHabit é uma API para criação e acompanhamento de hábitos: cadastro de h
 - JWT Authentication
 - OpenTelemetry
 - Docker / Docker Compose
+- xUnit
+- Testcontainers
 
 ## Como rodar o projeto
 
@@ -53,14 +57,29 @@ dotnet run --project DevHabit
 
 A API estará disponível em `http://localhost:5000` (ajuste conforme sua configuração em `appsettings.json` / `.env`).
 
+## Testes
+
+O projeto conta com dois níveis de teste:
+
+- **Testes unitários** — validam regras de negócio e handlers isoladamente, sem dependências externas
+- **Testes de integração** — usam **Testcontainers** para provisionar um banco PostgreSQL real em container durante a execução dos testes, garantindo que as consultas e o comportamento da camada de persistência sejam validados contra o banco de verdade (não um in-memory ou mock), e sem exigir setup manual de infraestrutura local
+
+```bash
+dotnet test
+```
+
+> Pré-requisito: Docker precisa estar rodando localmente, já que o Testcontainers sobe os containers de teste automaticamente.
+
 ## Estrutura do projeto
 
 ```
-DevHabit/              # código-fonte da API
-.github/workflows/      # pipelines de CI
+DevHabit/                            # código-fonte da API
+DevHabit.Api/                        # API REST
+DevHabit.FunctionalTests/            # testes funcionais
+DevHabit.Integration.Tests/          # testes de integração
+DevHabit.Unit.Tests/                 # testes unitários
+.github/workflows/                   # pipelines de CI
 ```
-
-> Detalhe aqui a estrutura interna da pasta `DevHabit/` (camadas, pastas de Controllers, Domain, Infrastructure etc.) conforme está organizado no seu repositório.
 
 ## Status do projeto
 
